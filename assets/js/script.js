@@ -1,4 +1,4 @@
-const checkTimeAndUpdate = (row) => {
+const updateTimeBlock = (row) => {
   // get current hour
   const hourString = moment().format("H");
   const currentHour = parseInt(hourString);
@@ -7,31 +7,24 @@ const checkTimeAndUpdate = (row) => {
   const time = $(row).data("hour");
   const textAreaElement = $(row).find("textarea");
 
-  // if time < current hour - add past
+  // if time < current hour - add past class
   if (time < currentHour) {
     textAreaElement.addClass("past");
   }
 
-  // if time = current hour - add present
+  // if time = current hour - add present class
   if (time === currentHour) {
     textAreaElement.addClass("present");
   }
 
-  // if time > current hour - add future
+  // if time > current hour - add future class
   if (time > currentHour) {
     textAreaElement.addClass("future");
   }
-};
 
-const updateTimeBlock = () => {
-  // check time for each block and change to past, present for future
-  $(".row").each((i, row) => {
-    checkTimeAndUpdate(row);
-  });
+  // target button and add event listener
 
-  // target save button and add event listener
-
-  // retrieve data from local storage and set text content of text area
+  // retrieve data from local storage & set text content of textarea
 };
 
 const onLoad = () => {
@@ -39,8 +32,10 @@ const onLoad = () => {
   const currentDay = moment().format("Do MMMM YYYY");
   $("#currentDay").text(currentDay);
 
-  // update time blocks to past, present or future
-  $(updateTimeBlock);
+  // update time blocks
+  $(".row").each((i, row) => {
+    updateTimeBlock(row);
+  });
 };
 
 $(document).ready(onLoad);
