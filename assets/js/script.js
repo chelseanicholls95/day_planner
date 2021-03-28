@@ -1,29 +1,27 @@
-const saveTextInput = () => {
-  console.log("save");
-};
-
 const updateTimeBlock = (row) => {
+  const saveTextInput = () => {
+    // get value of textarea and set to local storage
+    const data = $(textareaElement).val();
+    localStorage.setItem(time, data);
+  };
+
   // get current hour
   const hourString = moment().format("H");
   const currentHour = parseInt(hourString);
 
+  // get textarea
+  const textareaElement = $(row).find("textarea");
+
   // get data attribute of row
   const time = $(row).data("hour");
-  const textAreaElement = $(row).find("textarea");
 
-  // if time < current hour - add past class
+  // add the correct
   if (time < currentHour) {
-    textAreaElement.addClass("past");
-  }
-
-  // if time = current hour - add present class
-  if (time === currentHour) {
-    textAreaElement.addClass("present");
-  }
-
-  // if time > current hour - add future class
-  if (time > currentHour) {
-    textAreaElement.addClass("future");
+    textareaElement.addClass("past");
+  } else if (time === currentHour) {
+    textareaElement.addClass("present");
+  } else {
+    textareaElement.addClass("future");
   }
 
   // target button and add event listener
@@ -31,6 +29,8 @@ const updateTimeBlock = (row) => {
   saveBtn.click(saveTextInput);
 
   // retrieve data from local storage & set text content of textarea
+  const savedData = localStorage.getItem(time);
+  textareaElement.text(savedData);
 };
 
 const onLoad = () => {
