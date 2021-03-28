@@ -1,3 +1,7 @@
+const saveTextInput = () => {
+  console.log("save");
+};
+
 const updateTimeBlock = (row) => {
   // get current hour
   const hourString = moment().format("H");
@@ -23,6 +27,8 @@ const updateTimeBlock = (row) => {
   }
 
   // target button and add event listener
+  const saveBtn = $(row).find("button");
+  saveBtn.click(saveTextInput);
 
   // retrieve data from local storage & set text content of textarea
 };
