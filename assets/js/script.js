@@ -1,4 +1,5 @@
 $(".saveBtn").on("click", function () {
+  // when button is clicked, get value of text input, get the data attribute value and save in local storage
   const textInput = $(this).prev().val();
   const timeDiv = $(this).parent();
   const time = $(timeDiv).data("hour");
@@ -16,7 +17,7 @@ const updateTimeBlock = (row) => {
   // get data attribute of row
   const time = $(row).data("hour");
 
-  // add the correct
+  // add the correct class
   if (time < currentHour) {
     textareaElement.addClass("past");
   } else if (time === currentHour) {
