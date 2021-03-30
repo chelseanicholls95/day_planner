@@ -1,10 +1,9 @@
-$(".saveBtn").on("click", function () {
-  // when button is clicked, get value of text input, get the data attribute value and save in local storage
-  const textInput = $(this).prev().val();
-  const timeDiv = $(this).parent();
-  const time = $(timeDiv).data("hour");
+const saveTextInput = (event) => {
+  // get time and text input value & save to local storage
+  const time = event.data.time;
+  const textInput = event.data.textInput.val();
   localStorage.setItem(time, textInput);
-});
+};
 
 const updateTimeBlock = (row) => {
   // get current hour
@@ -25,6 +24,10 @@ const updateTimeBlock = (row) => {
   } else {
     textareaElement.addClass("future");
   }
+
+  // get button and add click event listener
+  const button = $(row).find("button");
+  button.click({ textInput: textareaElement, time: time }, saveTextInput);
 
   // retrieve data from local storage & set text content of textarea
   const savedData = localStorage.getItem(time);
