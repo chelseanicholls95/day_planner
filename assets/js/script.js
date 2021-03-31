@@ -1,5 +1,5 @@
 const saveTextInput = (event) => {
-  // get time and text input value & save to local storage
+  // get time and text input value for the button clicked & save to local storage
   const time = event.data.time;
   const textInput = event.data.textInput.val();
   localStorage.setItem(time, textInput);
@@ -45,4 +45,10 @@ const onLoad = () => {
   });
 };
 
+const clearTasks = () => {
+  localStorage.clear();
+  $("textarea").val("");
+};
+
 $(document).ready(onLoad);
+$("#clearBtn").click(clearTasks);
