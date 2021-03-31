@@ -14,6 +14,8 @@ code .
 
 ## Screenshots
 
+![screenshot of day planner](assets/screenshots/screenshot.png)
+
 ## Link to Deployed Application
 
 Click [here](https://chelseanicholls95.github.io/day_planner/) to view project.
