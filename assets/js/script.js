@@ -34,11 +34,13 @@ const updateTimeBlock = (row) => {
   textareaElement.text(savedData);
 };
 
-const onLoad = () => {
-  // get current day from moment, format and set text to element
+const renderCurrentTime = () => {
   const currentDay = moment().format("Do MMMM YYYY");
   $("#currentDay").text(currentDay);
+};
 
+const onLoad = () => {
+  renderCurrentTime();
   // update time blocks
   $(".row").each((i, row) => {
     updateTimeBlock(row);
