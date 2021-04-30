@@ -39,12 +39,16 @@ const renderCurrentTime = () => {
   $("#currentDay").text(currentDay);
 };
 
-const onLoad = () => {
-  renderCurrentTime();
-  // update time blocks
+const renderTimeBlocks = () => {
   $(".row").each((i, row) => {
     updateTimeBlock(row);
   });
+};
+
+const onLoad = () => {
+  renderCurrentTime();
+
+  renderTimeBlocks();
 };
 
 const clearTasks = () => {
