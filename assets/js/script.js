@@ -6,9 +6,7 @@ const saveTextInput = (event) => {
 };
 
 const updateTimeBlock = (row) => {
-  // get current hour
-  const hourString = moment().format("H");
-  const currentHour = parseInt(hourString);
+  const currentHour = moment().hour();
 
   // get textarea
   const textareaElement = $(row).find("textarea");
