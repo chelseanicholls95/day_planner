@@ -1,7 +1,12 @@
-const saveTextInput = (event) => {
+const saveTask = (event) => {
   const time = event.data.time;
   const textareaElement = event.data.textareaElement.val();
   localStorage.setItem(time, textareaElement);
+};
+
+const clearTasks = () => {
+  localStorage.clear();
+  $("textarea").val("");
 };
 
 const updateTimeBlock = (row) => {
@@ -18,16 +23,10 @@ const updateTimeBlock = (row) => {
   }
 
   const button = $(row).find("button");
-  button.click({ textareaElement, time }, saveTextInput);
+  button.click({ textareaElement, time }, saveTask);
 
-  // retrieve data from local storage & set text content of textarea
   const savedData = localStorage.getItem(time);
   textareaElement.text(savedData);
-};
-
-const renderCurrentTime = () => {
-  const currentDay = moment().format("Do MMMM YYYY");
-  $("#currentDay").text(currentDay);
 };
 
 const renderTimeBlocks = () => {
@@ -36,16 +35,17 @@ const renderTimeBlocks = () => {
   });
 };
 
+const renderCurrentTime = () => {
+  const currentDay = moment().format("Do MMMM YYYY");
+  $("#currentDay").text(currentDay);
+};
+
 const onLoad = () => {
   renderCurrentTime();
 
   renderTimeBlocks();
 };
 
-const clearTasks = () => {
-  localStorage.clear();
-  $("textarea").val("");
-};
+$("#clearBtn").click(clearTasks);
 
 $(document).ready(onLoad);
-$("#clearBtn").click(clearTasks);
