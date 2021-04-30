@@ -1,22 +1,19 @@
-const saveTextInput = (event) => {
-  // get time and text input value for the button clicked & save to local storage
+const saveTask = (event) => {
   const time = event.data.time;
-  const textInput = event.data.textInput.val();
-  localStorage.setItem(time, textInput);
+  const textareaElement = event.data.textareaElement.val();
+  localStorage.setItem(time, textareaElement);
+};
+
+const clearTasks = () => {
+  localStorage.clear();
+  $("textarea").val("");
 };
 
 const updateTimeBlock = (row) => {
-  // get current hour
-  const hourString = moment().format("H");
-  const currentHour = parseInt(hourString);
-
-  // get textarea
+  const currentHour = moment().hour();
+  const time = $(row).data("hour");
   const textareaElement = $(row).find("textarea");
 
-  // get data attribute of row
-  const time = $(row).data("hour");
-
-  // add the correct class
   if (time < currentHour) {
     textareaElement.addClass("past");
   } else if (time === currentHour) {
@@ -25,30 +22,30 @@ const updateTimeBlock = (row) => {
     textareaElement.addClass("future");
   }
 
-  // get button and add click event listener
   const button = $(row).find("button");
-  button.click({ textInput: textareaElement, time: time }, saveTextInput);
+  button.click({ textareaElement, time }, saveTask);
 
-  // retrieve data from local storage & set text content of textarea
   const savedData = localStorage.getItem(time);
   textareaElement.text(savedData);
 };
 
-const onLoad = () => {
-  // get current day from moment, format and set text to element
-  const currentDay = moment().format("Do MMMM YYYY");
-  $("#currentDay").text(currentDay);
-
-  // update time blocks
+const renderTimeBlocks = () => {
   $(".row").each((i, row) => {
     updateTimeBlock(row);
   });
 };
 
-const clearTasks = () => {
-  localStorage.clear();
-  $("textarea").val("");
+const renderCurrentTime = () => {
+  const currentDay = moment().format("Do MMMM YYYY");
+  $("#currentDay").text(currentDay);
 };
 
-$(document).ready(onLoad);
+const onLoad = () => {
+  renderCurrentTime();
+
+  renderTimeBlocks();
+};
+
 $("#clearBtn").click(clearTasks);
+
+$(document).ready(onLoad);
